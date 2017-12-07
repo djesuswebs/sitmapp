@@ -1,22 +1,24 @@
 
 @extends('layouts.app')
+
 @extends('partials.menuAdmin')
 @extends('partials.menuHeader')
 
 @section('content')
-
 <?php 
+               
+                use App\Tipovehiculo as Tipovehiculo;
+                //$articulos = Articulos::all();
 
-                use App\Proveedor as Proveedor;
-                //$proveedor = Proveedor::where('nombre_proveedor','like','%OILRED S.A.%')
-                //->get();
+                $tipovehiculo=  Tipovehiculo::all();
+
 ?>
 
 <div class="wrapper">
 
-  
+
   @yield('menuHeader')
-  
+
   @yield('menuLateral')
 
   <!-- Content Wrapper. Contains page content -->
@@ -28,151 +30,69 @@
         <small>Panel Principal</small>
       </h1> -->
       <ol class="breadcrumb">
-        <li><a href="/home"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
     </section>
 
     <!-- Main content -->
-    <section style="height: 944px;" class="content">
+    <section class="content">
 
-      <div style="padding: 0px, 34px, 0px, 34px;!important">
-          <!--<img  src="{{ URL:: asset('assets/AdminLTE-2.4.0/dist/img/CintilloSITM.png')}}"> -->
+      <!--  <div style="padding: 0px, 34px, 0px, 34px;!important">
+        <img  src="{{ URL:: asset('assets/AdminLTE-2.4.0/dist/img/CintilloSITM.png')}}">
 
-      </div>
-  
-          
-          <?php foreach ($proveedor as $proveedorEdit) { ?>
-          <form role="form" method="PUT" action="{{ route('guardar_proveedor')}}">
+      </div>-->
 
-            <input name="proveedorId" type="text" class="hidden" value="<?php echo $proveedorEdit->proveedorId?>">
-            
-          <div style="top:32px; margin-bottom: 72px;" class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title"><b> Eitar Proveedor: </b> <?php echo $proveedorEdit->nombre_proveedor?></h3>
+         <div style="top:32px" class="box">
+            <div class="box-header">
+              <h3 class="box-title">LISTA DE TIPOVEHICULOS</h3>
             </div>
 
+            <a style="left: 34px; width: 10%; z-index: 2;" href="/agregar_tipovehiculo" class="btn btn-block btn-danger">Agregar TipoVehiculo</a>
+            <!-- /.box-header -->
             <div class="box-body">
-              <div class="row">
-                <div class="col-xs-3">
-                 <label for="nombre_proveedor" > Nombre Proveedor </label>
-                  <input name="nombre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->nombre_proveedor?>">
-                </div>
-                <div class="col-xs-3">
-                 <label for="nit" > Nit </label>
-                  <input name="nit" type="text" class="form-control" value="<?php echo $proveedorEdit->nitproveedor?>">
-                </div>
-                <div class="col-xs-3">
-                 <label for="nit" > RIF: </label>
-                  <input name="rif_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->rif_proveedor?>">
-                </div>
-                <div class="col-xs-3">
-                 <label for="correo" > Correo </label>
-                  <input name="email_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->email?>">
-                </div>
-              </div>
+              <table id="listadotipovehiculos" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Marca</th>
+                  <th>Modelo</th>
+                  <th>Desde</th>
+                  <th>Hasta</th>
+                  <th>Cilindraje</th>
+                  <th> Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
 
-              </br>
+                     @foreach($tipovehiculo as $tipovehiculoView)
+                      <tr>
+                       	<td>{{ $tipovehiculoView->idtipovehiculo }} </td>
+                        <td>{{ $tipovehiculoView->marcavehiculo}}</td>
+                        <td>{{ $tipovehiculoView->modelovehiculo}} </td>
+                        <td>{{ $tipovehiculoView->anovehiculo }} </td>
+                        <td>{{ $tipovehiculoView-> anovehdos }} </td>
+                        <td>{{ $tipovehiculoView->cilindraje }} </td>
 
-               <div class="row">
-                 
-                  <div class="col-xs-3">
-                    <label for="nit"> Telefono Movil </label>
-                    <input name="tel_movil_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->tel_movil?>">
-                  </div>
-                  <div class="col-xs-3">
-                    <label for="nit" > Telefono Local </label>
-                    <input name="tel_local_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->tel_local?>">
-                  </div>
-                 
+                        <td>
+                          <a href="/actualizar_tipovehiculo/{{$tipovehiculoView->idtipovehiculo }}">
+                             <i id="tooltip-events" title="Editar Tipovehiculo" class="fa fa-fw fa-pencil"></i> 
+                          </a>
+                        </td>
+                      </tr>
+                      @endforeach
 
-               </div>
-               <div class="row">
-                <div class="col-xs-4">
-                     <div class="form-group">
-                       <label>Dirección</label>
-                        <textarea name="direccion_proveedor" class="form-control" rows="8" ><?php echo $proveedorEdit->direccion?></textarea>
-                      </div>
-                  </div>
-               <div class="col-xs-4">
-                     <div class="form-group">
-                       <label>Servicios</label>
-                        <textarea name="servicios_proveedor" class="form-control" rows="8" ><?php echo $proveedorEdit->servicios?></textarea>
-                      </div>
-                  </div>
 
-               </div>
-
+                </tbody>
+             
+              </table>
             </div>
-            <div >
             <!-- /.box-body -->
-                <div  class="box box-info">
-                  <div class="box-header with-border">
-                      <h3 class="box-title"><b> Datos Bancarios de: </b> <?php echo $proveedorEdit->nombre_proveedor?></h3>
-                  </div>
-
-                  <div class="box-body">
-                    <div class="row">
-                      <div class="col-xs-3">
-                       <label for="nombre_proveedor" > Nombre Banco</label>
-                        <input name="banco_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->banco?>">
-                      </div>
-                      <div class="col-xs-3">
-                       <label for="nit" > Tipo Cuenta </label>
-                        <input name="tipo_cuenta_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->tipocuebanc?>">
-                      </div>
-                      <div class="col-xs-3">
-                       <label for="nit" > Nro Cuenta: </label>
-                        <input name="numero_cuenta__proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->cuebanc?>">
-                      </div>
-                      
-                    </div> 
-                  </div>
-                </div>
-            </div>
-
-            </br>
-            <div >
-                <div  class="box box-warning">
-                  <div class="box-header with-border">
-                      <h3 class="box-title"><b> Datos del Representante de: </b> <?php echo $proveedorEdit->nombre_proveedor?></h3>
-                  </div>
+          </div>
 
 
-                    <div class="box-body">
-                      <div class="row">
-                        <div class="col-xs-3">
-                         <label for="nombre_proveedor" > Nombre Representante</label>
-                          <input name="nombre_repre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->nombre_repres?>">
-                        </div>
-                        <div class="col-xs-3">
-                         <label for="nit" > Apellido Representante </label>
-                          <input name="apellido_repre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->ape_repres?>">
-                        </div>
-                        <div class="col-xs-3">
-                         <label for="nit" > Nro Cuenta: </label>
-                          <input name="cuenta_repre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->cuebanc?>">
-                        </div>
+         
 
-                         <div class="col-xs-3">
-                            <label for="nit" > Telefono Representante </label>
-                            <input name="tele_repre_proveedor"type="text" class="form-control" value="<?php echo $proveedorEdit->telmovrep?>">
-                        </div>
-                        
-                      </div> 
-                    </div>
-                </div>
-              </div>
-              <!-- /.box -->
-              </div>
-
-              <button style="position: fixed; bottom: 104px; right: 34px;" align="rigth"  type="submit" class="btn btn-success">Guardar</button>
-          </form>
-           <?php } ?>
-
-           <button style="position: fixed; bottom: 104px; right: 124px;" align="rigth"  type="submit" class="btn btn-warning">Salir</button>
-
-    
     </section>
     <!-- /.content -->
   </div>
@@ -387,6 +307,16 @@
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+    var table2 = $('#listadotipovehiculos').DataTable( {
+        responsive: true,
+        paging: true
+    } );
+ 
+} );
+  </script>
 
  @yield('scripts')
 

@@ -50,6 +50,8 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+
+
   <script type="text/javascript">
     
     $(function () {
@@ -57,8 +59,26 @@
 })
 
   </script>
+
+ 
+
+  <style type="text/css">
+  .rotate:hover {
+      transform : rotate(360deg);
+      -moz-transform          : rotate(360deg);
+      -webkit-transform       : rotate(360deg);
+      transform-origin        : center;
+      -moz-transform-origin   : center;
+      -webkit-transform-origin: center;
+                    
+      transition              : transform 1.0s ease all;
+      -moz-transition         : -moz-transform 1.0s ease all;
+      -webkit-transition      : -webkit-transform 1.0s ease all;   
+                        
+  }
+  </style>
 </head>
-<body class="hold-transition login-page skin-red sidebar-mini">
+<body class="hold-transition login-page skin-blue sidebar-mini">
     <div style="margin-top: 42px;" id="app">
        <!-- <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -117,6 +137,9 @@
         </nav> -->
 
         @yield('content')
+
+
+
     </div>
 
 
@@ -179,7 +202,13 @@
 <script src="{{ asset('assets/AdminLTE-2.4.0/dist/js/demo.js')}}"></script>
 <!-- DataTables -->
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+
+<script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+
+
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+
+
 
    <script>
             $(function () {
@@ -210,7 +239,6 @@
   </script>
 
  
-
 
 
  @show

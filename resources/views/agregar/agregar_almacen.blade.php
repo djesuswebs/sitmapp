@@ -7,17 +7,22 @@
 
 <?php 
 
-                use App\Proveedor as Proveedor;
-                //$proveedor = Proveedor::where('nombre_proveedor','like','%OILRED S.A.%')
-                //->get();
+               
+                use App\Almacen as Almacen;
+                //$articulos = Articulos::all();
+
+                $almacen=  Almacen::all();
+
+
 ?>
 
 <div class="wrapper">
 
-  
   @yield('menuHeader')
   
   @yield('menuLateral')
+
+  
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -34,143 +39,63 @@
     </section>
 
     <!-- Main content -->
-    <section style="height: 944px;" class="content">
+    <section style="height: 1944px;" class="content">
 
       <div style="padding: 0px, 34px, 0px, 34px;!important">
-          <!--<img  src="{{ URL:: asset('assets/AdminLTE-2.4.0/dist/img/CintilloSITM.png')}}"> -->
+          <!--<img  src="{{ URL:: asset('assets/AdminLTE-2.4.0/dist/img/CintilloSITM.png')}}"> 
+
+          'cod_articulo', 'denominacion', 'presentacion', 'modelo', 'dentipart', 'almacenId', 'id_almacen'
+
+          -->
 
       </div>
-  
-          
-          <?php foreach ($proveedor as $proveedorEdit) { ?>
-          <form role="form" method="PUT" action="{{ route('guardar_proveedor')}}">
 
-            <input name="proveedorId" type="text" class="hidden" value="<?php echo $proveedorEdit->proveedorId?>">
+          <form  method="post" enctype="multipart/form-data" action="{{ route('agregar_almacen')}}">
+
+            
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="usuarioId" value="{{ Auth::user()->id }}">
             
           <div style="top:32px; margin-bottom: 72px;" class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title"><b> Eitar Proveedor: </b> <?php echo $proveedorEdit->nombre_proveedor?></h3>
+              <h3 class="box-title"><b> Agregar Almacen</h3>
             </div>
 
             <div class="box-body">
               <div class="row">
-                <div class="col-xs-3">
-                 <label for="nombre_proveedor" > Nombre Proveedor </label>
-                  <input name="nombre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->nombre_proveedor?>">
-                </div>
-                <div class="col-xs-3">
-                 <label for="nit" > Nit </label>
-                  <input name="nit" type="text" class="form-control" value="<?php echo $proveedorEdit->nitproveedor?>">
-                </div>
-                <div class="col-xs-3">
-                 <label for="nit" > RIF: </label>
-                  <input name="rif_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->rif_proveedor?>">
-                </div>
-                <div class="col-xs-3">
-                 <label for="correo" > Correo </label>
-                  <input name="email_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->email?>">
-                </div>
+
+                  <div class="col-xs-2">
+                   <label for="nit" > Nombre Almacen </label>
+                    <input name="nombre_almacen" type="text" class="form-control">
+                  </div>
+
+                  <div class="col-xs-3">
+                   <label for="nombre_articulo" > Ubicación Fisica </label>
+                    <textarea name="ubicacion_almacen" type="text" class="form-control" rows="4"></textarea>
+                  </div>
+
+               </div>
+
+               <div class="row">
+               
+
               </div>
-
-              </br>
-
-               <div class="row">
-                 
-                  <div class="col-xs-3">
-                    <label for="nit"> Telefono Movil </label>
-                    <input name="tel_movil_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->tel_movil?>">
-                  </div>
-                  <div class="col-xs-3">
-                    <label for="nit" > Telefono Local </label>
-                    <input name="tel_local_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->tel_local?>">
-                  </div>
-                 
-
-               </div>
-               <div class="row">
-                <div class="col-xs-4">
-                     <div class="form-group">
-                       <label>Dirección</label>
-                        <textarea name="direccion_proveedor" class="form-control" rows="8" ><?php echo $proveedorEdit->direccion?></textarea>
-                      </div>
-                  </div>
-               <div class="col-xs-4">
-                     <div class="form-group">
-                       <label>Servicios</label>
-                        <textarea name="servicios_proveedor" class="form-control" rows="8" ><?php echo $proveedorEdit->servicios?></textarea>
-                      </div>
-                  </div>
-
-               </div>
-
-            </div>
             <div >
             <!-- /.box-body -->
-                <div  class="box box-info">
-                  <div class="box-header with-border">
-                      <h3 class="box-title"><b> Datos Bancarios de: </b> <?php echo $proveedorEdit->nombre_proveedor?></h3>
-                  </div>
-
-                  <div class="box-body">
-                    <div class="row">
-                      <div class="col-xs-3">
-                       <label for="nombre_proveedor" > Nombre Banco</label>
-                        <input name="banco_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->banco?>">
-                      </div>
-                      <div class="col-xs-3">
-                       <label for="nit" > Tipo Cuenta </label>
-                        <input name="tipo_cuenta_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->tipocuebanc?>">
-                      </div>
-                      <div class="col-xs-3">
-                       <label for="nit" > Nro Cuenta: </label>
-                        <input name="numero_cuenta__proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->cuebanc?>">
-                      </div>
-                      
-                    </div> 
-                  </div>
-                </div>
             </div>
 
-            </br>
-            <div >
-                <div  class="box box-warning">
-                  <div class="box-header with-border">
-                      <h3 class="box-title"><b> Datos del Representante de: </b> <?php echo $proveedorEdit->nombre_proveedor?></h3>
-                  </div>
-
-
-                    <div class="box-body">
-                      <div class="row">
-                        <div class="col-xs-3">
-                         <label for="nombre_proveedor" > Nombre Representante</label>
-                          <input name="nombre_repre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->nombre_repres?>">
-                        </div>
-                        <div class="col-xs-3">
-                         <label for="nit" > Apellido Representante </label>
-                          <input name="apellido_repre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->ape_repres?>">
-                        </div>
-                        <div class="col-xs-3">
-                         <label for="nit" > Nro Cuenta: </label>
-                          <input name="cuenta_repre_proveedor" type="text" class="form-control" value="<?php echo $proveedorEdit->cuebanc?>">
-                        </div>
-
-                         <div class="col-xs-3">
-                            <label for="nit" > Telefono Representante </label>
-                            <input name="tele_repre_proveedor"type="text" class="form-control" value="<?php echo $proveedorEdit->telmovrep?>">
-                        </div>
-                        
-                      </div> 
-                    </div>
-                </div>
-              </div>
+            
               <!-- /.box -->
               </div>
+              <div >
 
-              <button style="position: fixed; bottom: 104px; right: 34px;" align="rigth"  type="submit" class="btn btn-success">Guardar</button>
+                <button style="position: fixed; bottom: 104px; right: 34px;"  type="submit" class="btn btn-success">
+                    <p class="rotate">Agregar Almacen</p>
+                </button>
+
+              </div>
           </form>
-           <?php } ?>
-
-           <button style="position: fixed; bottom: 104px; right: 124px;" align="rigth"  type="submit" class="btn btn-warning">Salir</button>
+        
 
     
     </section>

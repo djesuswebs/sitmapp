@@ -10,25 +10,27 @@
                 use App\Articulos as Articulos;
                 use App\Almacen as Almacen;
                 use App\Tipoarticulos as Tipoarticulos; 
-                use App\Fabricante as Fabricante; 
-                use App\Tipovehiculo as Tipovehiculo;
-                use App\Proveedor as Proveedor;
-                                 //$proveedor = Proveedor::where('nombre_proveedor','like','%OILRED S.A.%')
+                use App\Fabricante as Fabricante;  
+                use App\Tipovehiculo as Tipovehiculo;               
+                 //$proveedor = Proveedor::where('nombre_proveedor','like','%OILRED S.A.%')
                 //->get();
 
                 $tipoarticulo = Tipoarticulos::all();
                 $fabricante = Fabricante::all();
-                $proveedor = Proveedor::all();
                 $tipovehiculo= Tipovehiculo::all();
                 $almacen= Almacen::all();
 
 ?>
+
 
 <div class="wrapper">
 
   @yield('menuHeader')
   
   @yield('menuLateral')
+
+  
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -48,22 +50,22 @@
 
       <div style="padding: 0px, 34px, 0px, 34px;!important">
           <!--<img  src="{{ URL:: asset('assets/AdminLTE-2.4.0/dist/img/CintilloSITM.png')}}"> 
+
+          'cod_articulo', 'denominacion', 'presentacion', 'modelo', 'dentipart', 'almacenId', 'id_almacen'
+
           -->
 
       </div>
-  
-          
-          <?php foreach ($articulo as $articuloEdit) { ?>
 
-          <form   method="post" enctype="multipart/form-data" action="{{ route('guardar_articulo')}}">
+          <form  method="post" enctype="multipart/form-data" action="{{ route('agregar_articulo')}}">
 
-            <input name="codigoArticulo" type="text" class="hidden" value="<?php echo $articuloEdit->cod_articulo?>">
-            <input name="id_articulo" type="text" class="hidden" value="<?php echo $articuloEdit->id_articulo?>">
+            
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="usuarioId" value="{{ Auth::user()->id }}">
             
           <div style="top:32px; margin-bottom: 72px;" class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title"><b> Eitando Articulo: </b> <?php echo $articuloEdit->denominacion?></h3>
+              <h3 class="box-title"><b> Agregar Articulo</h3>
             </div>
 
             <div class="box-body">
@@ -72,17 +74,14 @@
                 <div class="col-xs-4">
                       <div class="form-group">
 
-                      <?php if ($articuloEdit->img_articulo == NULL) {?>
-                       <img height="143" width="143" src="../../../public/storage/articulos_default.png" class="img-circle" alt="Imagen Articulo ">
-                      <?php } else {?>
-                      <img height="143" width="143" src="../../../public/storage/<?php echo $articuloEdit->img_articulo?>" class="img-circle" alt="Imagen Articulo ">
-                      <?php } ?>
+                     <img height="143" width="143" src="../../../public/storage/articulos_default.png" class="img-circle" alt="Imagen Articulo ">
+                      
                       <br>
 
                         <label for="file">Foto Articulo</label>
-                        <input  name="file" type="file">
+                        <input  name="img_articulo" type="file">
 
-                        <p class="help-block">Example block-level help text here.</p>
+                        <p class="help-block">Foto del arituclo a Agregar.</p>
 
 
                       </div>
@@ -90,28 +89,28 @@
 
                 <div class="col-xs-3">
                  <label for="nombre_articulo" > Nombre Articulo </label>
-                  <textarea name="nombre_articulo" type="text" class="form-control" rows="4"><?php echo $articuloEdit->denominacion?></textarea>
+                  <textarea name="nombre_articulo" type="text" class="form-control" rows="4"></textarea>
                 </div>
                 <div class="col-xs-2">
                  <label for="nit" > Código </label>
-                  <input name="codigo_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->cod_articulo?>">
+                  <input name="codigo_articulo" type="text" class="form-control">
                 </div>
                 <div class="col-xs-2">
                  <label for="fecha_creacion_articulo" > Fecha de Creacion </label>
-                  
 
-                   <div class="input-group date">
+                  <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-
-                  <input name="fecha_creacion_articulo" type="text" class="form-control pull-right" value="<?php echo $articuloEdit->feccreart?>" id="datepicker">
-                </div>
+                  <input name="fecha_creacion_articulo" type="text" class="form-control pull-right" id="datepicker">
                 </div>
 
+                </div>
+
+               
                  <div class="col-xs-3">
                  <label for="fecha_creacion_articulo" > Modelo </label>
-                  <input name="modelo_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->modelo?>">
+                  <input name="modelo_articulo" type="text" class="form-control" >
                 </div>
                 
               </div>
@@ -122,7 +121,7 @@
                <div class="col-xs-4">
                      <div class="form-group">
                        <label>Descripcion</label>
-                        <textarea name="descripcion_articulo" class="form-control" rows="8" ><?php echo $articuloEdit->direccion?></textarea>
+                        <textarea name="descripcion_articulo" class="form-control" rows="8" ></textarea>
                       </div>
                   </div>
                  <!-- Tipo Articulo -->
@@ -130,16 +129,7 @@
                       <div class="form-group">
                         <label>Tipo de Articulo</label>
                         <select name="tipo_articulo" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                          <?php 
-
-                            $tipoarticulo_especifico= Tipoarticulos::where('tipo_articulo_id','=', $articuloEdit->tipo_articulo_id)->get();
-
-
-                              foreach ($tipoarticulo_especifico as $especifico) {
-                          ?> 
-                          <option value="<?php echo $especifico->tipo_articulo_id?>" class="selected"><?php echo $especifico->dentipart?></option>
-
-                          <?php } ?>
+                         
 
 
                           <?php foreach ($tipoarticulo as $tipoarticuloEdit) { ?> 
@@ -154,22 +144,22 @@
 
                   <div class="col-xs-2">
                     <label for="nit" > Existencia Actual </label>
-                    <input name="existencia_actual" type="text" class="form-control" value="<?php echo $articuloEdit->exiactart?>">
+                    <input name="existencia_actual" type="text" class="form-control" >
                   </div>
 
                    <div class="col-xs-2">
                     <label for="nit" > Existencia Inicial </label>
-                    <input name="existencia_inicial" type="text" class="form-control" value="<?php echo $articuloEdit->exiiniart?>">
+                    <input name="existencia_inicial" type="text" class="form-control" >
                   </div>
                  
                    <div class="col-xs-2">
                     <label for="nit" > Minimo </label>
-                    <input name="minimo" type="text" class="form-control" value="<?php echo $articuloEdit->minart?>">
+                    <input name="minimo" type="text" class="form-control" >
                   </div>
 
                    <div class="col-xs-2">
                     <label for="nit" > Máximo </label>
-                    <input name="maximo" type="text" class="form-control" value="<?php echo $articuloEdit->maxart?>">
+                    <input name="maximo" type="text" class="form-control" >
                   </div>
 
                   <!-- Tipo Articulo -->
@@ -178,20 +168,24 @@
                         <label>Fabricantes</label>
                         <select name="fabricante_id"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
-                         <?php 
-
-                            $fabricante_especifico= Fabricante::where('fabricanteId','=', $articuloEdit->fabricante_id)->get();
-
-
-                              foreach ($fabricante_especifico as $especifico_fabricante) {
-                          ?> 
-                          <option  value="<?php echo $especifico_fabricante->fabricanteId?>" class="selected"><?php echo $especifico_fabricante->denefabricante?></option>
-
-                          <?php } ?>
+                        
 
                           <?php foreach ($fabricante as $fabricanteEdit) { ?> 
-                              <option value="<?php echo $fabricanteEdit->fabricanteId?>"><?php echo $fabricanteEdit->denefabricante?></option>
+
+                              <option value="<?php echo $fabricanteEdit->fabricanteId?>" ><?php echo $fabricanteEdit->denefabricante?></option>
+
                           <?php } ?> 
+
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Presentacion</label>
+                        <select name="presentacion"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+
+                              <option value="Original" >Original</option>
+
+                              <option value="Generico" >Generico</option>
 
                         </select>
                       </div>
@@ -200,15 +194,15 @@
                  
 
                </div>
+
                <div class="row">
                
 
               </div>
             <div >
             <!-- /.box-body -->
-               
-
-                <!-- Porcentajes Incremento-->
+              
+            <!-- Porcentajes Incremento-->
                  <div  class="box box-warning">
                   <div class="box-header with-border">
                       <h3 class="box-title"><b> Porcentajes de Incremento </b> </h3>
@@ -218,15 +212,15 @@
                     <div class="row">
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje A </label>
-                        <input name="porcentajea" type="text" class="form-control" value="<?php echo $articuloEdit->incpora?>">
+                        <input name="porcentajea" type="text" class="form-control">
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje B </label>
-                        <input name="porcentajeb" type="text" class="form-control" value="<?php echo $articuloEdit->incporb?>">
+                        <input name="porcentajeb" type="text" class="form-control">
                       </div>
                          <div class="col-xs-2">
                        <label for="nit" > Porcentaje C </label>
-                        <input name="porcentajec" type="text" class="form-control" value="<?php echo $articuloEdit->incporc?>"> %
+                        <input name="porcentajec" type="text" class="form-control"> %
                       </div>
                      
                     </div> 
@@ -236,59 +230,54 @@
 
                 <!-- Porcentajes Incremento-->
                  <div  class="box box-success">
-                  <div class="box-header with-border">
-                      <h3 class="box-title"><b> Precio de Ventas </b> </h3>
-                  </div>
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><b> Precio de Ventas </b> </h3>
+                    </div>
 
-                  <div class="box-body">
-                    <div class="row">
-                      <div class="col-xs-2">
-                       <label for="nit" > Precio Venta A </label>
-                        <input name="precio_a" type="text" class="form-control" value="<?php echo $articuloEdit->precioventaa?>">
-                      </div>
-                      <div class="col-xs-2">
-                       <label for="nit" > Precio Venta B </label>
-                        <input name="precio_b" type="text" class="form-control" value="<?php echo $articuloEdit->precioventab?>">
-                      </div>
-                         <div class="col-xs-2">
-                       <label for="nit" > Precio Venta C </label>
-                        <input name="precio_c" type="text" class="form-control" value="<?php echo $articuloEdit->precioventac?>">
-                      </div>
-                     
-                    </div> 
-                  </div>
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-xs-2">
+                         <label for="nit" > Precio Venta A </label>
+                          <input name="precio_a" type="text" class="form-control" >
+                        </div>
+                        <div class="col-xs-2">
+                         <label for="nit" > Precio Venta B </label>
+                          <input name="precio_b" type="text" class="form-control" >
+                        </div>
+                           <div class="col-xs-2">
+                         <label for="nit" > Precio Venta C </label>
+                          <input name="precio_c" type="text" class="form-control" >
+                        </div>
+                       
+                      </div> 
+                    </div>
                 </div>
                 <!-- FIn Precio de Ventas-->
 
-                
-                
-
-                  <!--  Tipos Vehiculos -->
-                 <div  class="box box-info">
+                <!--  Tipos Vehiculos -->
+                <div  class="box box-info">
                   <div class="box-header with-border">
                       <h3 class="box-title"><b> Tipo Vehiculo </b> </h3>
                   </div>
 
                   <div class="box-body">
                     <div class="row">
+                      <div class="col-xs-4">
+                        <div class="form-group">
+                          <label></label>
+                          <select name="tipovehiculo"  style="width:720px" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
-                     <div class="col-xs-4">
-                      <div class="form-group">
-                        <label></label>
-                        <select name="tipovehiculo"  style="width:720px" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                            <?php foreach ($tipovehiculo as $tipovehiculoEdit) { ?> 
+                                <option value="<?php echo $tipovehiculoEdit->idtipovehiculo?>">
+                                  <?php 
+                                      echo $tipovehiculoEdit->marcavehiculo.' - Modelo:'.$tipovehiculoEdit->modelovehiculo.' - Desde el año: '.$tipovehiculoEdit->anovehiculo.' hasta el Año '.$tipovehiculoEdit->anovehdos.' - Cilindraje: '.$tipovehiculoEdit->cilindraje
+                                  ?>
+                                </option>
+                            <?php } ?> 
 
-                          <?php foreach ($tipovehiculo as $tipovehiculoEdit) { ?> 
-                              <option value="<?php echo $tipovehiculoEdit->idtipovehiculo?>">
-                                <?php 
-                                  echo $tipovehiculoEdit->marcavehiculo.' - Modelo:'.$tipovehiculoEdit->modelovehiculo.' - Desde el año: '.$tipovehiculoEdit->anovehiculo.' hasta el Año '.$tipovehiculoEdit->anovehdos.' - Cilindraje: '.$tipovehiculoEdit->cilindraje
-                                ?>
-                                
-                              </option>
-                          <?php } ?> 
-
-                        </select>
+                          </select>
+                        </div>
                       </div>
-                  </div>
                     </div> 
                   </div>
                 </div>
@@ -304,23 +293,23 @@
                     <div class="row">
                       <div class="col-xs-3">
                        <label for="nombre_proveedor" > Unidad de Medida</label>
-                        <input name="banco_proveedor" type="text" class="form-control" value="<?php echo $articuloEdit->banco?>">
+                        <input name="unidad_medida_articulo" type="text" class="form-control" >
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Diametro Interno </label>
-                        <input name="diametro_interno_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->diainterno?>">
+                        <input name="diametro_interno_articulo" type="text" class="form-control" >
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Diametro Externo: </label>
-                        <input name="diametro_externo_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->diaexterno?>">
+                        <input name="diametro_externo_articulo" type="text" class="form-control" >
                       </div>
                          <div class="col-xs-2">
                        <label for="nit" > Alto </label>
-                        <input name="alto_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->alto?>">
+                        <input name="alto_articulo" type="text" class="form-control" >
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Largo: </label>
-                        <input name="largo_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->largo?>">
+                        <input name="largo_articulo" type="text" class="form-control" >
                       </div>
                     </div> 
                   </div>
@@ -329,22 +318,22 @@
 
                 <!--  Ubicacion en Almacen -->
                  <div  class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title"><b> Ubicación dentro de Almacen </b> </h3>
-                    </div>
+                  <div class="box-header with-border">
+                      <h3 class="box-title"><b> Ubicación dentro de Almacen </b> </h3>
+                  </div>
 
-                    <div class="box-body">
-                      <div class="row">
-                        <div class="col-xs-4">
+                  <div class="box-body">
+                    <div class="row">
+                      <div class="col-xs-4">
                         <div class="form-group">
                           <label>Almacen</label>
-                          <select name="almacen_id"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                          <select required name="almacen_id"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
                             <option value="0">Seleccione...</option>
 
                             <?php foreach ($almacen as $almacenEdit) { ?> 
 
-                                <option value="<?php echo $almacenEdit->id_almacen?>" ><?php echo $almacenEdit->denalmacen?></option>
+                                <option required value="<?php echo $almacenEdit->id_almacen?>" ><?php echo $almacenEdit->denalmacen?></option>
 
                             <?php } ?> 
 
@@ -352,26 +341,40 @@
                         </div>
                       </div>
 
-                        <!--<div class="col-xs-2">
-                         <label for="nit" > Fila </label>
-                          <input name="fila_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->cuebanc?>">
-                        </div>
+                      <div class="form-group">
+                        <label>Presentacion</label>
+                        <select name="presentacion"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
-                        <div class="col-xs-2">
-                         <label for="nit" > Columna </label>
-                          <input class="form-control" name="columna_articulo">
-                        </div>
-                        -->
+                              <option value="Original" >Original</option>
 
-                        <div class="col-xs-2">
-                         <label for="nit" > Puesto </label>
-                          <input name="puesto_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->tipocuebanc?>">
-                        </div>
-                       
-                      </div> 
-                    </div>
+                              <option value="Generico" >Generico</option>
+
+                        </select>
+                      </div>
+                  </div>
+
+
+                      <!--<div class="col-xs-2">
+                       <label for="nit" > Fila </label>
+                        <input name="fila_articulo" type="text" class="form-control" >
+                      </div>
+
+                      <div class="col-xs-2">
+                       <label for="nit" > Columna </label>
+                        <input class="form-control" name="columna_articulo">
+                      </div>
+                      -->
+
+                      <div class="col-xs-2">
+                       <label for="nit" > Puesto </label>
+                        <input name="puesto_articulo" type="text" class="form-control" >
+                      </div>
+                     
+                    </div> 
+                  </div>
                 </div>
                 <!--Fin  Ubicacion en Almacen -->
+
 
             </div>
 
@@ -381,12 +384,12 @@
               <div >
 
                 <button style="position: fixed; bottom: 104px; right: 34px;"  type="submit" class="btn btn-success">
-                    <p class="rotate">Guardar Articulo</p>
+                    <p class="rotate">Agregar Articulo</p>
                 </button>
 
               </div>
           </form>
-        <?php } ?>
+        
 
     
     </section>
@@ -603,6 +606,17 @@
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+
+
+<script type="text/javascript">
+   //Date picker
+   $(document).ready(function() {
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+   });
+</script>
 
 
 

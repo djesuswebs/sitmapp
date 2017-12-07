@@ -12,8 +12,9 @@ class FabricanteTableSeeder extends Seeder
     public function run()
     {
         //
-    	 DB::table('fabricante')->insert([
-         ['fabricanteId' => '1','denefabricante' => 'CHEVROLET'],
+    	 DB::table('fabricantes')->insert([
+         
+   ['fabricanteId' => '1','denefabricante' => 'CHEVROLET'],
    ['fabricanteId' => '2','denefabricante' => 'RENAULT'],
    ['fabricanteId' => '5','denefabricante' => 'HYUNDAI'],
    ['fabricanteId' => '6','denefabricante' => 'RECO'],
@@ -23,10 +24,10 @@ class FabricanteTableSeeder extends Seeder
    ['fabricanteId' => '10','denefabricante' => 'GAMAX'],
    ['fabricanteId' => '11','denefabricante' => 'BRACE PLUS'],
    ['fabricanteId' => '12','denefabricante' => 'BRAKE PADS'],
-   ['fabricanteId' => '13','denefabricante' => 'Incolbest'],
+   ['fabricanteId' => '13','denefabricante' => 'INCOLBEST'],
    ['fabricanteId' => '14','denefabricante' => 'RECO PLUS'],
    ['fabricanteId' => '15','denefabricante' => 'RECO TWAREX'],
-   ['fabricanteId' => '16','denefabricante' => 'Reco Durable'],
+   ['fabricanteId' => '16','denefabricante' => '[GM] ORIGINAL'],
    ['fabricanteId' => '17','denefabricante' => 'Forwell'],
    ['fabricanteId' => '18','denefabricante' => 'KS-1 JAPAN'],
    ['fabricanteId' => '19','denefabricante' => 'SAFETY [JAPONES]'],
@@ -50,7 +51,7 @@ class FabricanteTableSeeder extends Seeder
    ['fabricanteId' => '37','denefabricante' => 'ELF'],
    ['fabricanteId' => '38','denefabricante' => 'VALEO'],
    ['fabricanteId' => '39','denefabricante' => 'NSK'],
-   ['fabricanteId' => '40','denefabricante' => 'Total'],
+   ['fabricanteId' => '40','denefabricante' => 'TOTAL'],
    ['fabricanteId' => '41','denefabricante' => 'VALVOLINE'],
    ['fabricanteId' => '42','denefabricante' => 'CHEVRON'],
    ['fabricanteId' => '43','denefabricante' => 'TEK SYN'],
@@ -72,7 +73,25 @@ class FabricanteTableSeeder extends Seeder
    ['fabricanteId' => '60','denefabricante' => 'GMB'],
    ['fabricanteId' => '61','denefabricante' => 'JDE'],
    ['fabricanteId' => '62','denefabricante' => 'PETROSOL'],
-   ['fabricanteId' => '63','denefabricante' => 'UNIVERSAL']
-       ]);
+   ['fabricanteId' => '63','denefabricante' => 'UNIVERSAL'],
+   ['fabricanteId' => '64','denefabricante' => 'ALEMAN'],
+   ['fabricanteId' => '65','denefabricante' => 'PETROBRAS'],
+   ['fabricanteId' => '66','denefabricante' => 'MOTORKOTE'],
+   ['fabricanteId' => '67','denefabricante' => 'MAGNETI MARELLI'],
+   ['fabricanteId' => '68','denefabricante' => 'TERPEL'],
+   ['fabricanteId' => '69','denefabricante' => 'PREMIUM'],
+   ['fabricanteId' => '70','denefabricante' => 'PARTMO'],
+   ['fabricanteId' => '71','denefabricante' => 'S.A.P.'],
+   ['fabricanteId' => '72','denefabricante' => 'LUBRISTONE'],
+   ['fabricanteId' => '73','denefabricante' => 'CHAMPION'],
+   ['fabricanteId' => '74','denefabricante' => 'LUBITEC'],
+   ['fabricanteId' => '75','denefabricante' => 'HELLI'],
+   ['fabricanteId' => '76','denefabricante' => 'ONNURI'],
+   ['fabricanteId' => '77','denefabricante' => 'PUROLATOR'],
+   ['fabricanteId' => '78','denefabricante' => 'SIDERAL'],
+   ['fabricanteId' => '79','denefabricante' => 'NOK CORTECO'],
+   ['fabricanteId' => '80','denefabricante' => 'AKURO GENUINE']
+]);
+
     }
 }

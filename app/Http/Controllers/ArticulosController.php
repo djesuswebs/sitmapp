@@ -94,20 +94,16 @@ class ArticulosController extends Controller
                 $var_decode =  base64_decode($articuloId);
                 $articulo = Articulos::where('id_articulo','=', $articuloId)->get();
                 return \View::make('edit/actualizar_articulo',compact('articulo'));
-
-                
-
-               
-                
     }
 
-
+// Guardar despues de Editar
      public function guardar_act_articulo(Request $request)
           {
                        // $movie = Proveedor::where('proveedorId','like','%'.$request->proveedorId.'%')->get();
 
             //'cod_articulo', 'denominacion', 'presentacion', 'modelo', 'dentipart', 'almacenId', 'tipo_articulo_id', 'exiactart', 'exiinitart', 'minart', 'maxart'
 
+                    if ($request->file != NULL){
                         // PARA GUARDAR IMAGEN
                        $file = $request->file('file');
  
@@ -117,7 +113,7 @@ class ArticulosController extends Controller
                        //indicamos que queremos guardar un nuevo archivo en el disco local
                        \Storage::disk('local')->put($nombre,  \File::get($file));
                                         
-                       
+                       }
                        
                         $articulo = Articulos::find($request->id_articulo);
                         $articulo->denominacion = $request->nombre_articulo;
@@ -129,13 +125,71 @@ class ArticulosController extends Controller
                         $articulo->exiiniart= $request->existencia_inicial;
                         $articulo->minart = $request->minimo;
                         $articulo->maxart = $request->maximo;
-                        $articulo->img_articulo= $nombre;
+                        if ($request->file != NULL){
+                            $articulo->img_articulo= $nombre;
+                        }
+                        $articulo->precioventaa = $request->precio_a;
+                        $articulo->precioventab = $request->precio_b;
+                        $articulo->precioventac = $request->precio_c;
                         
-
-                       
                        
                         $articulo->save();
                         //dd($request->all());
                         return redirect('articulos');
          }
+
+//Agregar Articulo Nuevo (Store)
+          public function agregar_articulo(Request $request)
+    {
+        //
+
+        if ($request->file != NULL){
+                    $file = $request->file('img_articulo');
+         
+                    //obtenemos el nombre del archivo
+                    $nombre = $file->getClientOriginalName();
+                 
+            //indicamos que queremos guardar un nuevo archivo en el disco local
+            \Storage::disk('local')->put($nombre,  \File::get($file));
+        }   
+            $articulo= new Articulos;
+            $articulo->cod_articulo = $request->codigo_articulo;
+            $articulo->usuarioId = $request->usuarioId;
+            $articulo->denominacion = $request->nombre_articulo;
+            $articulo->descripcion = $request->descripcion_articulo;
+            $articulo->presentacion = $request->presentacion;
+            $articulo->fabricante_id = $request->fabricante_id;
+            $articulo->feccreart= $request->fecha_creacion_articulo;
+            $articulo->modelo = $request->modelo_articulo;
+            $articulo->tipo_articulo_id= $request->tipo_articulo;
+            $articulo->exiactart = $request->existencia_actual;
+            $articulo->exiiniart= $request->existencia_inicial;
+            $articulo->minart = $request->minimo;
+            $articulo->maxart = $request->maximo;
+             if ($request->file != NULL){
+                    $articulo->img_articulo= $nombre;
+                }
+            
+            $articulo->tipovehiculoId = $request->tipovehiculo;
+
+            $articulo->unidadmedida = $request->unidad_medida_articulo;
+            $articulo->diainterno = $request->diametro_interno_articulo;
+            $articulo->diaexterno = $request->diametro_externo_articulo;
+            $articulo->alto= $request->alto_articulo;
+            $articulo->largo = $request->largo_articulo;
+
+            $articulo->incpora = $request->porcentajea;
+            $articulo->incporb= $request->porcentajeb;
+            $articulo->incporc= $request->porcentajec;
+
+            $articulo->precioventaa = $request->precio_a;
+            $articulo->precioventab= $request->precio_b;
+            $articulo->precioventac= $request->precio_c;
+             $articulo->almacenId= $request->almacen_articulo;
+
+
+            $articulo->save();
+            //dd($request->all());
+            return redirect('articulos');
+    }
 }

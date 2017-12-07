@@ -32,6 +32,34 @@ class ProveedoresController extends Controller
         //
     }
 
+    public function agregar_proveedor(Request $request)
+    {
+
+            $proveedor= new Proveedor;
+            $proveedor->nitproveedor = $request->nit_proveedor;
+            $proveedor->nombre_proveedor = $request->nombre_proveedor;
+            $proveedor->direccion = $request->direccion_proveedor;
+            $proveedor->rif_proveedor = $request->rif_proveedor;
+            $proveedor->tel_movil = $request->movil_proveedor;
+            $proveedor->tel_local = $request->local_proveedor;
+            $proveedor->correo= $request->correo_poveedor;
+            $proveedor->paginaweb = $request->web_proveedor;
+            $proveedor->servicios= $request->servicios_proveedor;
+            $proveedor->banco = $request->banco_proveedor;
+            $proveedor->tipocuebanc= $request->tipocuenta_proveedor;
+            $proveedor->cuebanc = $request->ncuenta_proveedor;
+
+            $proveedor->ced_repres= $request->cedula_representante_proveedor;
+            $proveedor->nombre_repres = $request->nombre_representante_proveedor;
+            $proveedor->ape_repres = $request->apellido_representante_proveedor;
+            $proveedor->telmovrep= $request->telefono_representante_proveedor;
+            
+
+            $proveedor->save();
+            //dd($request->all());
+            return redirect('proveedores');
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -119,6 +147,11 @@ class ProveedoresController extends Controller
                         $movie->save();
                         return redirect('proveedores');
          }
+
+public function __construct()
+	{
+		$this->middleware('auth');
+	} 
 
         
 }

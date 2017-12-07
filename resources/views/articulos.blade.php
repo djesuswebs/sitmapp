@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@extends('partials.menuAdmin')
+@extends('partials.menuHeader')
+
 @section('content')
 <?php 
                
@@ -8,9 +11,9 @@
 
             $articulos =  DB::table('articulos')
                 ->join('tipoarticulos', 'articulos.tipo_articulo_id', '=', 'tipoarticulos.tipo_articulo_id')
-                ->join('almacen', 'articulos.almacenId', '=', 'almacen.id_almacen')
+                ->join('almacens', 'articulos.almacenId', '=', 'almacens.id_almacen')
                 ->join('fabricantes', 'articulos.fabricante_id', '=', 'fabricantes.fabricanteId')
-              ->select('articulos.*', 'tipoarticulos.*','almacen.*','fabricantes.*')
+              ->select('articulos.*', 'tipoarticulos.*','almacens.*','fabricantes.*')
             ->get();
 
 
@@ -18,412 +21,14 @@
 
 <div class="wrapper">
 
-  <header class="main-header skin-redsidebar-mini">
-    <!-- Logo -->
-    <a href="/home" class="logo navbar-fixed-top">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>SIT</b>M</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>SITM</b>Muria</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-fixed-top">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-           <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
-            </a> -->
-            <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="{{ URL::asset('assets/AdminLTE-2.4.0/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        AdminLTE Design Team
-                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Developers
-                        <small><i class="fa fa-clock-o"></i> Today</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Sales Department
-                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Reviewers
-                        <small><i class="fa fa-clock-o"></i> 2 days</small>
-                      </h4>
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
-          </li>
-          <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a> -->
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a> -->
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
-                      </h3>
-                      <div class="progress xs">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
-          <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <?php 
-              if (Auth::user()->img_user == NULL){
-                echo '<img src="../../../assets/AdminLTE-2.4.0/dist/img/avatar_default.jpg" class="user-image" alt="User Image">';
-              } else{
-                echo '<img src="{{ Auth::user()->img_user}}" class="user-image" alt="User Image">';
-              }
-            ?>
-              
-              <span class="hidden-xs">{{ Auth::user()->name }}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-               <?php 
-              if (Auth::user()->img_user == NULL){
-                echo '<img src="../../../assets/AdminLTE-2.4.0/dist/img/avatar_default.jpg" class="user-image" alt="User Image">';
-              } else{
-                echo '<img src="{{ Auth::user()->img_user}}" class="user-image" alt="User Image">';
-              }
-            ?>
-
-                <p>
-                  <b>{{ Auth::user()->name }}</b>
-                  <small>Miembro desde {{ Auth::user()->created_at }}</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  
-                  <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"  class="btn btn-default btn-flat">
-                                            Salir
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                    </form>
-
-
-
-                </div>
-              </li>
-            </ul>
-          </li>
-          <!-- Control Sidebar Toggle Button -->
-          <!--<li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li> -->
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar user panel -->
-      <div class="user-panel">
-        <div class="pull-left image">
-           <!-- User image -->
-               <?php 
-              if (Auth::user()->img_user == NULL){
-                echo '<img src="../../../assets/AdminLTE-2.4.0/dist/img/avatar_default.jpg" class="img-circle" alt="User Image">';
-              } else{
-                echo '<img src="{{ Auth::user()->img_user}}" class="img-circle" alt="User Image">';
-              }
-            ?>
-        </div>
-        <div class="pull-left info">
-          <p>{{ Auth::user()->name }}</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        </div>
-      </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-
-         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-gear"></i> <span>Configuracion</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Tipos de Articulos</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Almacenes</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Fabricantes</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Tipos de Vehiculos</a></li>
-            <!--<li class="treeview">
-              <a href="#"><i class="fa fa-circle-o"></i> Level One
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> Fabricantes</a></li>
-                <li class="treeview">
-                  <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li> 
-              <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-            -->
-            
-          </ul>
-        </li>
-        
-          <li><a href="/manobra"><i class="fa fa-hand-lizard-o"></i> <span>Mano de Obra</span></a></li>
-          <li><a href="/proveedores"><i class="fa fa-truck"></i> <span>Proveedores</span></a></li>
-          <li><a href="/articulos"> <i class="fa fa-archive"></i> <span>Articulos</span></a></li>
-          <li><a href="/cliente"><i class="fa fa-users"></i> <span>Clientes </span></a></li>
-          <li><a href="/servicios"><i class="fa fa-ship"></i> <span>Servicios</span></a></li>
-          <li><a href=""><i class="fa fa-refresh"></i> <span>Arctualizar Vehiculos</span></a></li>
-        <!--<li>
-          <a href="pages/mailbox/mailbox.html">
-            <i class="fa fa-envelope"></i> <span>Mailbox</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-yellow">12</small>
-              <small class="label pull-right bg-green">16</small>
-              <small class="label pull-right bg-red">5</small>
-            </span>
-          </a>
-        </li> -->
-       
-       
-       <!-- <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>-->
-        <li class="header">Opciones</li>
-        <li>
-           <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-              <i class="fa fa-circle-o text-red"></i> <span>Salir</span>
-          </a>
-
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-          </form>
-        </li>
-        <!--<li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>-->
-      </ul>
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+  @yield('menuHeader')
+ 
+  @yield('menuLateral')
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div  class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+    <section  class="content-header">
       <!--<h1>
         SITM
         <small>Panel Principal</small>
@@ -435,7 +40,7 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section  class="content">
 
       <!--  <div style="padding: 0px, 34px, 0px, 34px;!important">
         <img  src="{{ URL:: asset('assets/AdminLTE-2.4.0/dist/img/CintilloSITM.png')}}">
@@ -445,15 +50,17 @@
          <div style="top:32px" class="box">
             <div class="box-header">
               <h3 class="box-title">LISTA DE ARTICULOS</h3>
+              <a style="left: 34px; width: 10%; z-index: 2;" href="/agregar_articulo" class="btn btn-block btn-danger">Agregar Articulo</a>
             </div>
+
             <!-- /.box-header -->
             <div class="box-body">
               <table id="listaarticulos" class="table table-bordered ">
                 <thead>
                 <tr>
                   <th></th>
-                  <th>CÓDIGO</th>
                   <th>Nombre</th>
+                  <th width="4">CÓDIGO</th>
                   <th>Tipo</th>
                   <th>Fabricante</th>
                   <th>Existencia</th>
@@ -471,24 +78,29 @@
                         <td>
 
                         <?php if ($articulosView->img_articulo == NULL) {?>
-                            <img height="43" width="43" src="../../../public/storage/articulos_default.png" class="img-circle" alt="Imagen Articulo ">
+                           
+                                <img height="43" width="43" src="../../../public/storage/articulos_default.png" class="img-circle"  alt="Imagen Articulo ">
+                           
                         <?php } else {?>
-                            <img height="43" width="43" src="../../../public/storage/{{$articulosView->img_articulo}}" class="img-circle" alt="Imagen Articulo ">
+                         
+                            <img height="43" width="43" src="../../../public/storage/{{$articulosView->img_articulo}}" data-toggle="modal" data-target="#{{$articulosView->id_articulo}}" class="img-circle myBtn_{{ $articulosView->id_articulo }}" id="myBtn_{{ $articulosView->id_articulo }}"  alt="Imagen Articulo ">
+
                         <?php } ?> </td>
-                       	<td>{{ $articulosView->cod_articulo }} </td>
-                        <td>
-                        
-                        <?php 
-                                 $nombreArticulo =  $articulosView->denominacion;
-                                 if (strlen($nombreArticulo) > 20) {
-                                      $Contenido = substr( $nombreArticulo, 0, 20) .'<span id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">...</span>';
-                                  } else {
-                                      $Contenido =  $nombreArticulo . '<span id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">...</span>';
-                                  } 
+                         <td>
+                          
+                        <?php echo $articulosView->denominacion;
+                                 //$nombreArticulo =  $articulosView->denominacion;
+                                 //if (strlen($nombreArticulo) > 20) {
+                                      //$Contenido = substr( $nombreArticulo, 0, 20) .'<span id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">...</span>';
+                                  //} //else {
+                                      //$Contenido =  $nombreArticulo . '<span id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">...</span>';
+                                  //} 
                               
-                                echo '<span  id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">'.$Contenido.'</span>';
+                                //echo '<span  id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">'.$Contenido.'</span>';
                               ?>
                         </td>
+                       	<td width="2">{{ $articulosView->cod_articulo }} </td>
+                       
                         <td>{{ $articulosView->dentipart}} </td>
                         <td>{{ $articulosView->denefabricante}} </td>
                         <td >{{ $articulosView->exiactart}}</td>
@@ -497,12 +109,72 @@
                         <td>{{ $articulosView->precioventab}}</td>
                         <td>{{ $articulosView->puesto}}</td>
                         <td>
-                            <a href="/actualizar_articulo/{{$articulosView->id_articulo}}">
-                             <i id="tooltip-events" title="Editar Articulo" class="fa fa-fw fa-pencil">
-                             </i> 
-                          </a></td>
+                          <a href="/actualizar_articulo/{{$articulosView->id_articulo}}">
+                             <i id="tooltip-events" title="Editar Articulo" class="fa fa-fw fa-pencil"></i> 
+                          </a>
+
+                          
+                        </td>
        
                       </tr>
+
+                     
+
+
+                      <!--MODAL IMAGEN -->
+                      <div class="modal fade" id="{{ $articulosView->id_articulo }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                          <div style="width: 815px; height: 611px;"  class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="myModalLabel">Imagen de Articulo: {{ $articulosView->cod_articulo.' - ' }}
+                                <?php  
+                                  $nombreArticulo =  $articulosView->denominacion;
+                                    if (strlen($nombreArticulo) > 20) {
+                                      
+                                      $Contenido = substr( $nombreArticulo, 0, 30) .'<span id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">...</span>';
+                                                          }
+                                      else {
+                                          $Contenido =  $nombreArticulo . '<span id="tooltip-events " class="tooltipstered"  title="'.$articulosView->denominacion.'">...</span>';
+                                      } 
+                                                      
+                                  echo '<span  id="tooltip-events" style="background-color: #B9E1EE; padding: 4px 12px 4px 12px;" class="tooltipstered"  title="'.$articulosView->denominacion.'">'.$Contenido.'</span>';
+                                ?>
+                                  
+                              </h4>
+                            </div>
+                            <div   class="modal-body">
+                              
+                              <?php if ($articulosView->img_articulo == NULL) {?>
+                                                
+                                <img style="margin:0 auto;" height="411" width="515" src="../../../public/storage/articulos_default.png" class="" data-toggle="modal" data-target="#myModal" alt="Imagen Articulo ">
+                                                 
+                              <?php } else {?>
+                                               
+                                <img  height="411" width="715" src="../../../public/storage/{{$articulosView->img_articulo}}" data-toggle="modal" data-target="#myModal" class="" alt="Imagen Articulo ">
+
+                              <?php } ?>
+
+                            </div>
+                            <div style="background: #3c8dbc;" class="modal-footer">
+                              <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save changes</button> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Trigger/Open The Modal -->
+
+<script>
+$('.openBtn').on('click',function(){
+    $('.modal-body').load('getContent.php?id=2',function(){
+        $('#myModal').modal({show:true});
+    });
+});
+</script>
+
+
                       @endforeach
 
 
@@ -512,6 +184,8 @@
             </div>
             <!-- /.box-body -->
           </div>
+
+     
 
 
          
@@ -731,17 +405,24 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
+<script src="/js/laravel-delete.js"></script>
+
   <script type="text/javascript">
     $(document).ready(function() {
     var table2 = $('#listaarticulos').DataTable( {
-        responsive: true,
-        paging: true
+        responsive: false,
+        paging: true,
+        bDeferRender: true
     } );
  
 } );
   </script>
 
+
  @yield('scripts')
+
+
+
 
  
 
