@@ -282,6 +282,19 @@
                         <label></label>
                         <select name="tipovehiculo" style="width:720px" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
+
+                         <?php 
+
+                            $tipovehiculo_especifico= Tipovehiculo::where('idtipovehiculo','=', $articuloEdit->idtipovehiculo)->get();
+
+
+                              foreach ($tipovehiculo_especifico as $especifico_tipovehiculo) {
+                          ?> 
+                          <option value="<?php echo 'Freddy '.$especifico_tipovehiculo->idtipovehiculo?>" class="selected">
+                            <?php echo $especifico_tipovehiculo->marcavehiculo?>
+                          </option>
+
+                          <?php } ?>
                           <?php foreach ($tipovehiculo as $tipovehiculoEdit) { ?> 
                               <option value="<?php echo $tipovehiculoEdit->idtipovehiculo?>">
                                 <?php 
