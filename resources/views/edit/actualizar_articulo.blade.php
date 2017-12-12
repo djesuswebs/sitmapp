@@ -216,14 +216,14 @@
 
                    <div class="col-xs-2">
                          <label for="nit" > Costo Unitario </label>
-                          <input name="precio_a" type="text" class="form-control" id="multiplicando"   value="<?php echo $articuloEdit->costounitario?>" onChange="multiplicarA();">
+                          <input name="precio_a" type="text" class="form-control"  value="<?php echo $articuloEdit->costounitario?>" onChange="multiplicarA();">
                         </div>
 
                   <div class="box-body">
                     <div class="row">
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje A </label>
-                        <input name="porcentajea" type="text" class="form-control" id="multiplicador" value="<?php echo $articuloEdit->incpora?>" onChange="multiplicarA();" >
+                        <input name="porcentajea" type="text" class="form-control" value="<?php echo $articuloEdit->incpora?>"  >
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje B </label>
@@ -280,7 +280,7 @@
                      <div class="col-xs-4">
                       <div class="form-group">
                         <label></label>
-                        <select name="tipovehiculo"  style="width:720px" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                        <select name="tipovehiculo" style="width:720px" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
                           <?php foreach ($tipovehiculo as $tipovehiculoEdit) { ?> 
                               <option value="<?php echo $tipovehiculoEdit->idtipovehiculo?>">
