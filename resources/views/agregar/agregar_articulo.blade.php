@@ -144,22 +144,22 @@
 
                   <div class="col-xs-2">
                     <label for="nit" > Existencia Actual </label>
-                    <input name="existencia_actual" type="text" class="form-control" >
+                    <input required name="existencia_actual" type="text" class="form-control" >
                   </div>
 
                    <div class="col-xs-2">
                     <label for="nit" > Existencia Inicial </label>
-                    <input name="existencia_inicial" type="text" class="form-control" >
+                    <input required name="existencia_inicial" type="text" class="form-control" >
                   </div>
                  
                    <div class="col-xs-2">
                     <label for="nit" > Minimo </label>
-                    <input name="minimo" type="text" class="form-control" >
+                    <input required name="minimo" type="text" class="form-control" >
                   </div>
 
                    <div class="col-xs-2">
                     <label for="nit" > Máximo </label>
-                    <input name="maximo" type="text" class="form-control" >
+                    <input required name="maximo" type="text" class="form-control" >
                   </div>
 
                   <!-- Tipo Articulo -->
@@ -210,17 +210,23 @@
 
                   <div class="box-body">
                     <div class="row">
+
+                     <div class="col-xs-2">
+                         <label for="nit" >Costo Unitario </label>
+                          <input name="costo_unitario" type="text" id="costounitario" onChange="multiplicarA();" class="form-control" >
+                        </div>
+
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje A </label>
-                        <input name="porcentajea" type="text" class="form-control">
+                        <input name="porcentajea" type="text" id="porcentajea" onChange="multiplicarA();" class="form-control">
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje B </label>
-                        <input name="porcentajeb" type="text" class="form-control">
+                        <input name="porcentajeb" id="porcentajeb" onChange="multiplicarB();" type="text" class="form-control">
                       </div>
                          <div class="col-xs-2">
                        <label for="nit" > Porcentaje C </label>
-                        <input name="porcentajec" type="text" class="form-control"> %
+                        <input name="porcentajec" id="porcentajec" onChange="multiplicarC();"  type="text" class="form-control"> %
                       </div>
                      
                     </div> 
@@ -236,17 +242,19 @@
 
                     <div class="box-body">
                       <div class="row">
+
+                      
                         <div class="col-xs-2">
                          <label for="nit" > Precio Venta A </label>
-                          <input name="precio_a" type="text" class="form-control" >
+                          <input id="precio_a"  name="precio_a" type="text" class="form-control" >
                         </div>
                         <div class="col-xs-2">
                          <label for="nit" > Precio Venta B </label>
-                          <input name="precio_b" type="text" class="form-control" >
+                          <input name="precio_b" id="precio_b" type="text" class="form-control" >
                         </div>
                            <div class="col-xs-2">
                          <label for="nit" > Precio Venta C </label>
-                          <input name="precio_c" type="text" class="form-control" >
+                          <input name="precio_c" id="precio_c" type="text" class="form-control" >
                         </div>
                        
                       </div> 
@@ -283,7 +291,7 @@
                 </div>
                 <!-- Fin Tipos Vehiculos -->
 
-                <!--Medidas -->
+                <!--Medidas
                 <div  class="box box-info">
                   <div class="box-header with-border">
                       <h3 class="box-title"><b> Medidas del Articulo: </b></h3>
@@ -313,7 +321,7 @@
                       </div>
                     </div> 
                   </div>
-                </div>
+                </div> -->
                 <!-- Fin Medidas -->
 
                 <!--  Ubicacion en Almacen -->
@@ -324,7 +332,7 @@
 
                   <div class="box-body">
                     <div class="row">
-                      <div class="col-xs-4">
+                      <div class="col-xs-2">
                         <div class="form-group">
                           <label>Almacen</label>
                           <select required name="almacen_id"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
@@ -341,16 +349,7 @@
                         </div>
                       </div>
 
-                      <div class="form-group">
-                        <label>Presentacion</label>
-                        <select name="presentacion"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-
-                              <option value="Original" >Original</option>
-
-                              <option value="Generico" >Generico</option>
-
-                        </select>
-                      </div>
+                   
                   </div>
 
 
@@ -607,8 +606,34 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="{{ asset('assets/AdminLTE-2.4.0/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
+<script>
+function multiplicarA(){
+  m1 = document.getElementById("costounitario").value;
+         m2 = document.getElementById("porcentajea").value;
+         m22=m2/100;
+         r = m1*m22;
+         rr=parseFloat(m1)+parseFloat(r);
+           document.getElementById("precio_a").value = rr;
+}
 
+function multiplicarB(){
+  m1 = document.getElementById("costounitario").value;
+         m2 = document.getElementById("porcentajeb").value;
+         m22=m2/100;
+         r = m1*m22;
+         rr=parseFloat(m1)+parseFloat(r);
+           document.getElementById("precio_b").value = rr;
+}
 
+function multiplicarC(){
+  m1 = document.getElementById("costounitario").value;
+         m2 = document.getElementById("porcentajec").value;
+         m22=m2/100;
+         r = m1*m22;
+         rr=parseFloat(m1)+parseFloat(r);
+           document.getElementById("precio_c").value = rr;
+}
+</script>
 <script type="text/javascript">
    //Date picker
    $(document).ready(function() {
