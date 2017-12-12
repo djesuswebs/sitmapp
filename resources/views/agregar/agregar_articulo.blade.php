@@ -273,7 +273,7 @@
                       <div class="col-xs-4">
                         <div class="form-group">
                           <label></label>
-                          <select name="tipovehiculo"  style="width:720px" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                          <select name="tipovehiculo" size="15" multiple="multiple" style="width:720px" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
                             <?php foreach ($tipovehiculo as $tipovehiculoEdit) { ?> 
                                 <option value="<?php echo $tipovehiculoEdit->idtipovehiculo?>">
