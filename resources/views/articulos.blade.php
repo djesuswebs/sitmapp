@@ -59,8 +59,9 @@
                 <thead>
                 <tr>
                   <th></th>
-                  <th>Nombre</th>
                   <th width="4">CÓDIGO</th>
+                  <th>Nombre</th>
+                  
                   <th>Tipo</th>
                   <th>Fabricante</th>
                   <th>Existencia</th>
@@ -86,6 +87,8 @@
                             <img height="43" width="43" src="../../../public/storage/{{$articulosView->img_articulo}}" data-toggle="modal" data-target="#{{$articulosView->id_articulo}}" class="img-circle myBtn_{{ $articulosView->id_articulo }}" id="myBtn_{{ $articulosView->id_articulo }}"  alt="Imagen Articulo ">
 
                         <?php } ?> </td>
+                        	<td width="2">{{ $articulosView->cod_articulo }} </td>
+                       
                          <td>
                           
                         <?php echo $articulosView->denominacion;
@@ -99,7 +102,6 @@
                                 //echo '<span  id="tooltip-events" class="tooltipstered"  title="'.$articulosView->denominacion.'">'.$Contenido.'</span>';
                               ?>
                         </td>
-                       	<td width="2">{{ $articulosView->cod_articulo }} </td>
                        
                         <td>{{ $articulosView->dentipart}} </td>
                         <td>{{ $articulosView->denefabricante}} </td>

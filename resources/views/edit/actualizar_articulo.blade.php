@@ -214,11 +214,16 @@
                       <h3 class="box-title"><b> Porcentajes de Incremento </b> </h3>
                   </div>
 
+                   <div class="col-xs-2">
+                         <label for="nit" > Costo Unitario </label>
+                          <input name="precio_a" type="text" class="form-control" id="multiplicando"   value="<?php echo $articuloEdit->costounitario?>" onChange="multiplicarA();">
+                        </div>
+
                   <div class="box-body">
                     <div class="row">
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje A </label>
-                        <input name="porcentajea" type="text" class="form-control" value="<?php echo $articuloEdit->incpora?>">
+                        <input name="porcentajea" type="text" class="form-control" id="multiplicador" value="<?php echo $articuloEdit->incpora?>" onChange="multiplicarA();" >
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Porcentaje B </label>
