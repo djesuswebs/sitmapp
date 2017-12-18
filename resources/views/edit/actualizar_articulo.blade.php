@@ -216,7 +216,7 @@
 
                    <div class="col-xs-2">
                          <label for="nit" > Costo Unitario </label>
-                          <input name="precio_a" type="text" class="form-control"  value="<?php echo $articuloEdit->costounitario?>" onChange="multiplicarA();">
+                          <input name="costo_unitario" type="text" class="form-control"  value="<?php echo $articuloEdit->costounitario?>" onChange="multiplicarA();">
                         </div>
 
                   <div class="box-body">
@@ -285,13 +285,13 @@
 
                          <?php 
 
-                            $tipovehiculo_especifico= Tipovehiculo::where('idtipovehiculo','=', $articuloEdit->idtipovehiculo)->get();
+                            $tipovehiculo_especifico= Tipovehiculo::where('idtipovehiculo','=', $articuloEdit->tipovehiculoId)->get();
 
 
                               foreach ($tipovehiculo_especifico as $especifico_tipovehiculo) {
                           ?> 
-                          <option value="<?php echo 'Freddy '.$especifico_tipovehiculo->idtipovehiculo?>" class="selected">
-                            <?php echo $especifico_tipovehiculo->marcavehiculo?>
+                          <option value="<?php echo $especifico_tipovehiculo->idtipovehiculo?>" class="selected">
+                            <?php echo $especifico_tipovehiculo->marcavehiculo.' - Modelo:'.$especifico_tipovehiculo->modelovehiculo.' - Desde el año: '.$especifico_tipovehiculo->anovehiculo.' hasta el Año '.$especifico_tipovehiculo->anovehdos.' - Cilindraje: '.$especifico_tipovehiculo->cilindraje?>
                           </option>
 
                           <?php } ?>
@@ -314,7 +314,7 @@
                 <!-- Fin Tipos Vehiculos -->
 
                 <!--Medidas -->
-                <div  class="box box-info">
+                <!--<div  class="box box-info">
                   <div class="box-header with-border">
                       <h3 class="box-title"><b> Medidas del Articulo: </b></h3>
                   </div>
@@ -323,27 +323,27 @@
                     <div class="row">
                       <div class="col-xs-3">
                        <label for="nombre_proveedor" > Unidad de Medida</label>
-                        <input name="banco_proveedor" type="text" class="form-control" value="<?php echo $articuloEdit->banco?>">
+                        <input name="banco_proveedor" type="text" class="form-control" value="<?php //echo $articuloEdit->banco?>">
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Diametro Interno </label>
-                        <input name="diametro_interno_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->diainterno?>">
+                        <input name="diametro_interno_articulo" type="text" class="form-control" value="<?php //echo $articuloEdit->diainterno?>">
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Diametro Externo: </label>
-                        <input name="diametro_externo_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->diaexterno?>">
+                        <input name="diametro_externo_articulo" type="text" class="form-control" value="<?php //echo $articuloEdit->diaexterno?>">
                       </div>
                          <div class="col-xs-2">
                        <label for="nit" > Alto </label>
-                        <input name="alto_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->alto?>">
+                        <input name="alto_articulo" type="text" class="form-control" value="<?php //echo $articuloEdit->alto?>">
                       </div>
                       <div class="col-xs-2">
                        <label for="nit" > Largo: </label>
-                        <input name="largo_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->largo?>">
+                        <input name="largo_articulo" type="text" class="form-control" value="<?php //echo $articuloEdit->largo?>">
                       </div>
                     </div> 
                   </div>
-                </div>
+                </div> -->
                 <!-- Fin Medidas -->
 
                 <!--  Ubicacion en Almacen -->
@@ -359,7 +359,18 @@
                           <label>Almacen</label>
                           <select name="almacen_id"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
 
-                            <option value="0">Seleccione...</option>
+                            <?php 
+
+                                $almacen_especifico= Almacen::where('id_almacen','=', $articuloEdit->almacenId)->get();
+
+
+                                  foreach ($almacen_especifico as $especifico_almacen) {
+                              ?> 
+                              <option value="<?php echo $especifico_almacen->almacenId?>" class="selected">
+                                <?php echo $especifico_almacen->denalmacen?>
+                              </option>
+
+                              <?php } ?>
 
                             <?php foreach ($almacen as $almacenEdit) { ?> 
 
@@ -384,9 +395,42 @@
 
                         <div class="col-xs-2">
                          <label for="nit" > Puesto </label>
-                          <input name="puesto_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->tipocuebanc?>">
+                          <input name="puesto_articulo" type="text" class="form-control" value="<?php echo $articuloEdit->puesto?>">
                         </div>
+
+
+                     
                        
+                      </div>
+                      
+                       <div class="row">
+                        <div class="col-xs-2">
+                          <div class="form-group">
+                            <label>Proveedor</label>
+                            <select required name="proveedor_id"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+
+                              <?php 
+
+                                $proveedor_especifico= Proveedor::where('proveedorId','=', $articuloEdit->proveedorId)->get();
+
+
+                                  foreach ($proveedor_especifico as $especifico_proveedor) {
+                              ?> 
+                              <option value="<?php echo $especifico_proveedor->proveedorId?>" class="selected">
+                                <?php echo $especifico_proveedor->nombre_proveedor?>
+                              </option>
+
+                              <?php } ?>
+
+                              <?php foreach ($proveedor as $proveedorEdit) { ?> 
+
+                                    <option required value="<?php echo $proveedorEdit->proveedorId?>" ><?php echo $proveedorEdit->nombre_proveedor?></option>
+
+                              <?php } ?> 
+
+                            </select>
+                          </div>
+                        </div>
                       </div> 
                     </div>
                 </div>

@@ -101,17 +101,15 @@ class ArticulosController extends Controller
           {
                        // $movie = Proveedor::where('proveedorId','like','%'.$request->proveedorId.'%')->get();
 
-            //'cod_articulo', 'denominacion', 'presentacion', 'modelo', 'dentipart', 'almacenId', 'tipo_articulo_id', 'exiactart', 'exiinitart', 'minart', 'maxart'
-
                     if ($request->file != NULL){
                         // PARA GUARDAR IMAGEN
-                       $file = $request->file('file');
- 
-                       //obtenemos el nombre del archivo
-                       $nombre = $file->getClientOriginalName();
-                 
-                       //indicamos que queremos guardar un nuevo archivo en el disco local
-                       \Storage::disk('local')->put($nombre,  \File::get($file));
+                        $file = $request->file('file');
+    
+                        //obtenemos el nombre del archivo
+                        $nombre = $file->getClientOriginalName();
+                    
+                        //indicamos que queremos guardar un nuevo archivo en el disco local
+                        \Storage::disk('local')->put($nombre,  \File::get($file));
                                         
                        }
                        
@@ -125,13 +123,21 @@ class ArticulosController extends Controller
                         $articulo->exiiniart= $request->existencia_inicial;
                         $articulo->minart = $request->minimo;
                         $articulo->maxart = $request->maximo;
+
                         if ($request->file != NULL){
                             $articulo->img_articulo= $nombre;
                         }
+
+                        $articulo->costounitario= $request->costo_unitario;
                         $articulo->precioventaa = $request->precio_a;
                         $articulo->precioventab = $request->precio_b;
                         $articulo->precioventac = $request->precio_c;
-                        
+
+                        $articulo->almacenId= $request->almacen_id;
+                        $articulo->proveedorId= $request->proveedor_id;
+                        $articulo->puesto= $request->puesto_articulo;
+                         
+                         
                        
                         $articulo->save();
                         //dd($request->all());
@@ -186,8 +192,11 @@ class ArticulosController extends Controller
             $articulo->precioventab= $request->precio_b;
             $articulo->precioventac= $request->precio_c;
             $articulo->almacenId= $request->almacen_articulo;
-            $articulo->proveedorId= $request->proveedor_id; //costo_unitario
-             $articulo->costounitario= $request->costo_unitario;   
+            $articulo->proveedorId= $request->proveedor_id; 
+            $articulo->costounitario= $request->costo_unitario;   
+             $articulo->puesto= $request->puesto_articulo;
+
+
             $articulo->save();
             //dd($request->all());
             return redirect('articulos');
