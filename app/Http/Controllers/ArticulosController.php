@@ -185,9 +185,9 @@ class ArticulosController extends Controller
             $articulo->precioventaa = $request->precio_a;
             $articulo->precioventab= $request->precio_b;
             $articulo->precioventac= $request->precio_c;
-             $articulo->almacenId= $request->almacen_articulo;
-
-
+            $articulo->almacenId= $request->almacen_articulo;
+            $articulo->proveedorId= $request->proveedor_id; //costo_unitario
+             $articulo->costounitario= $request->costo_unitario;   
             $articulo->save();
             //dd($request->all());
             return redirect('articulos');

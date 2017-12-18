@@ -11,7 +11,8 @@
                 use App\Almacen as Almacen;
                 use App\Tipoarticulos as Tipoarticulos; 
                 use App\Fabricante as Fabricante;  
-                use App\Tipovehiculo as Tipovehiculo;               
+                use App\Tipovehiculo as Tipovehiculo;  
+                use App\Proveedor as Proveedor;             
                  //$proveedor = Proveedor::where('nombre_proveedor','like','%OILRED S.A.%')
                 //->get();
 
@@ -19,6 +20,7 @@
                 $fabricante = Fabricante::all();
                 $tipovehiculo= Tipovehiculo::all();
                 $almacen= Almacen::all();
+                $proveedor = Proveedor::all();
 
 ?>
 
@@ -349,7 +351,13 @@
                         </div>
                       </div>
 
-                   
+
+                      
+
+                      <div class="col-xs-2">
+                       <label for="nit" > Puesto </label>
+                        <input name="puesto_articulo" type="text" class="form-control" >
+                      </div>
                   </div>
 
 
@@ -364,9 +372,22 @@
                       </div>
                       -->
 
+                      <div class="row">
                       <div class="col-xs-2">
-                       <label for="nit" > Puesto </label>
-                        <input name="puesto_articulo" type="text" class="form-control" >
+                        <div class="form-group">
+                          <label>Proveedor</label>
+                          <select required name="proveedor_id"  class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+
+                            <option value="0">Seleccione...</option>
+
+                            <?php foreach ($proveedor as $proveedorEdit) { ?> 
+
+                                <option required value="<?php echo $proveedorEdit->proveedorId?>" ><?php echo $proveedorEdit->nombre_proveedor?></option>
+
+                            <?php } ?> 
+
+                          </select>
+                        </div>
                       </div>
                      
                     </div> 

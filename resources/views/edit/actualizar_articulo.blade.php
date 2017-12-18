@@ -295,6 +295,7 @@
                           </option>
 
                           <?php } ?>
+                          
                           <?php foreach ($tipovehiculo as $tipovehiculoEdit) { ?> 
                               <option value="<?php echo $tipovehiculoEdit->idtipovehiculo?>">
                                 <?php 
