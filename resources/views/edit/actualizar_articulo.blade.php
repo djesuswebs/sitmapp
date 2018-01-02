@@ -122,7 +122,7 @@
                <div class="col-xs-4">
                      <div class="form-group">
                        <label>Descripcion</label>
-                        <textarea name="descripcion_articulo" class="form-control" rows="8" ><?php echo $articuloEdit->direccion?></textarea>
+                        <textarea name="descripcion_articulo" class="form-control" rows="8" ><?php echo $articuloEdit->descripcion?></textarea>
                       </div>
                   </div>
                  <!-- Tipo Articulo -->
@@ -366,7 +366,7 @@
 
                                   foreach ($almacen_especifico as $especifico_almacen) {
                               ?> 
-                              <option value="<?php echo $especifico_almacen->almacenId?>" class="selected">
+                              <option value="<?php echo $especifico_almacen->id_almacen?>" class="selected">
                                 <?php echo $especifico_almacen->denalmacen?>
                               </option>
 

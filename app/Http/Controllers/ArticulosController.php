@@ -115,6 +115,7 @@ class ArticulosController extends Controller
                        
                         $articulo = Articulos::find($request->id_articulo);
                         $articulo->denominacion = $request->nombre_articulo;
+                        $articulo->descripcion = $request->descripcion_articulo;
                         $articulo->fabricante_id = $request->fabricante_id;
                         $articulo->feccreart= $request->fecha_creacion_articulo;
                         $articulo->modelo = $request->modelo_articulo;
@@ -191,7 +192,7 @@ class ArticulosController extends Controller
             $articulo->precioventaa = $request->precio_a;
             $articulo->precioventab= $request->precio_b;
             $articulo->precioventac= $request->precio_c;
-            $articulo->almacenId= $request->almacen_articulo;
+            $articulo->almacenId= $request->almacen_id;
             $articulo->proveedorId= $request->proveedor_id; 
             $articulo->costounitario= $request->costo_unitario;   
              $articulo->puesto= $request->puesto_articulo;
