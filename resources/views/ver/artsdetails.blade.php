@@ -57,8 +57,8 @@
 
          
 
-            <?php echo $articuloEdit->cod_articulo?>
-            <?php echo $articuloEdit->id_articulo?>
+            <?php //echo $articuloEdit->cod_articulo?>
+            <?php //echo $articuloEdit->id_articulo?>
           
             
           <div style="top:32px; margin-bottom: 72px;" class="box box-danger">

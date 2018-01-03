@@ -111,13 +111,22 @@
                         <td>{{ $articulosView->precioventab}}</td>
                         <td>{{ $articulosView->puesto}}</td>
                         <td>
-                          <a href="/actualizar_articulo/{{$articulosView->id_articulo}}">
+
+                          <a href="/ver/{{$articulosView->id_articulo}}">
+                             <i id="tooltip-events" title="Ver Articulo" class="fa fa-fw fa-external-link"></i> 
+                          </a>
+
+                          <a href="/actualizar_articulo/{{$articulosView->id_articulo}}" style="color:green;">
                              <i id="tooltip-events" title="Editar Articulo" class="fa fa-fw fa-pencil"></i> 
                           </a>
 
-                           <a href="/ver/{{$articulosView->id_articulo}}">
-                             <i id="tooltip-events" title="Ver Articulo" class="fa fa-fw fa-pencil"></i> 
+                          <a href="/eliminar_articulo/{{$articulosView->id_articulo}}" style="color: red;">
+                             <i id="tooltip-events" title="Eliminar Articulo" class="fa fa-fw fa-close"></i> 
                           </a>
+
+
+
+                           
 
                           
                         </td>
