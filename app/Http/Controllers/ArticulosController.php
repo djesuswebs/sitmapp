@@ -96,6 +96,13 @@ class ArticulosController extends Controller
                 return \View::make('edit/actualizar_articulo',compact('articulo'));
     }
 
+      public function ver($articuloId)
+    {
+               
+                $articulo = Articulos::where('id_articulo','=', $articuloId)->get();
+                return \View::make('ver/artsdetails',compact('articulo'));
+    }
+
 // Guardar despues de Editar
      public function guardar_act_articulo(Request $request)
           {

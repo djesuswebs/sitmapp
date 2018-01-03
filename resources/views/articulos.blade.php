@@ -115,6 +115,10 @@
                              <i id="tooltip-events" title="Editar Articulo" class="fa fa-fw fa-pencil"></i> 
                           </a>
 
+                           <a href="/ver/{{$articulosView->id_articulo}}">
+                             <i id="tooltip-events" title="Ver Articulo" class="fa fa-fw fa-pencil"></i> 
+                          </a>
+
                           
                         </td>
        

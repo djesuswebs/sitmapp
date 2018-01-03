@@ -33,6 +33,7 @@ Route::get('/articulos', ['middleware' => 'auth',function () {
     return view('articulos');
 }]);
 
+
 Route::get('/tipoarticulos', ['middleware' => 'auth', function () {
     return view('tipoarticulos');
 }]);
@@ -96,6 +97,8 @@ Route::post('storage/create', 'StorageController@save');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('ver/{articuloId}', 'ArticulosController@ver'); //Muestra el formulario de Edicion
 
 Route::get('actualizar_proveedor/{proveedoresId}', 'ProveedoresController@actualizar_provedor'); //Muestra el formulario de Edicion
 Route::get('actualizar_articulo/{articuloId}', 'ArticulosController@actualizar_articulo'); //Muestra el formulario de Edicion
